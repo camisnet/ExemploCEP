@@ -9,6 +9,7 @@ export default function App() {
         <Text style={styles.txt}>Digite seu CEP:</Text>
         
 
+ 
         <TextInput
           placeholder='ex: 11740000'
           keyboardType='numeric'
