@@ -1,8 +1,17 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Touchable } from 'react-native';
 import Cep from './components/Cep';
+import Api from './components/Api';
 
 export default function App() {
+  const[cep, setCep] = useState("");
+  const[inputCep, setInputCep] = useState(0);
+  
+  async function buscaCep(){
+  const response = await Api.get('ws/'+inputCep+'/json/');
+  setCep(response.data);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.bloco}>
@@ -14,13 +23,17 @@ export default function App() {
           placeholder='ex: 11740000'
           keyboardType='numeric'
           style={styles.input}
+          onChangeText={(data)=>setInputCep(data)}
         />
         <TouchableOpacity
-          style={styles.bloco}
+          style={styles.botao}
+          onPress={buscaCep}
         >
           <Text style={styles.txtBotao}> Buscar </Text>
         </TouchableOpacity>
-        <Cep />
+
+
+        <Cep data ={cep} />
       </View>
     </View>
   );
